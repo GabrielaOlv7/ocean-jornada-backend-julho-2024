@@ -17,5 +17,15 @@ app.get('/item', function (req,res) {
   //pegamos a lista e enviamos como resposta http 
   res.send(lista)
 })
+
+//Sinalizar para o express que vamos usar json no body
+app.use(express.json())
+
+//Create -[POST] /item
+app.post('/item', function (req,res) {
+  console.log(req.body)
+  res.send('Create')
+})
+
 app.listen(3000)
 
