@@ -8,5 +8,14 @@ app.get('/', function (req, res) {
 app.get('/oi', function (req, res) {
   res.send('olá mundo!')
 })
+
+//lista de personagens
+const lista = ['Rick Sanchez','Morty Smith','Summer Smith']
+
+//Read all - [GET] /item
+app.get('/item', function (req,res) {
+  //pegamos a lista e enviamos como resposta http 
+  res.send(lista)
+})
 app.listen(3000)
 
