@@ -25,12 +25,23 @@ app.use(express.json())
 app.post('/item', function (req,res) {
   //obtemos o nome enviado no request body
   const item = req.body.nome
-  
+
   //inserimos o nome no final da lista
   lista.push(item)
 
-  res.send('Item enviadso com sucesso!')
+//enviamos uma mensagem de sucesso 
+  res.send('Item enviado com sucesso!')
 })
 
+//Read By Id - [GET] /item:id
+app.get('/item/:id',function (req,res) {
+  //acessamos o parametro de rota ID
+  const id = req.params.id
+  //acessamos o item na lista pelo item corrigido (id-1)
+  const item = lista[id - 1]
+
+  res.send(item)
+})
 app.listen(3000)
+
 
