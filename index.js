@@ -54,7 +54,7 @@ async function main() {
   app.get('/item/:id', async function (req, res) {
     //acessamos o parametro de rota ID
     const id = req.params.id
-    
+
     //acessamos o item na collection pelo objectid
     const item =  await collection.findOne({_id: new ObjectId(id)})
 
@@ -63,14 +63,18 @@ async function main() {
   })
 
   //update - [PUT] /item:id
-  app.put('/item/:id', function (req, res) {
+  app.put('/item/:id', async function (req, res) {
+    //acessamos o id do parametro de rota
     const id = req.params.id
 
-    //acesssamos o body da requisição com os dados a serem atual
-    const novoItem = req.body.nome
+    //acesssamos o novoItem no body da requisição
+    const novoItem = req.body
 
-    //atualizamos esse novoitem na lista usando indice
-    lista[id - 1] = novoItem
+    //atualizamos a collection com a nova informação
+    await collection.updateOne(
+      {_id: new ObjectId(id)},
+      {$set: novoItem}
+    )
 
     //enviamos uma mensagem de sucesso 
     res.send('item atualizado com sucesso:' + id)
