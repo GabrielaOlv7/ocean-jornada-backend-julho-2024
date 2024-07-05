@@ -22,11 +22,17 @@ async function main() {
 
   //lista de personagens
   const lista = ['Rick Sanchez', 'Morty Smith', 'Summer Smith']
+  const db = client.db(dbName)
+  const collection = db.collection('item')
 
   //Read all - [GET] /item
-  app.get('/item', function (req, res) {
-    //pegamos a lista e enviamos como resposta http 
-    res.send(lista)
+  app.get('/item', async function (req, res) {
+    //obter todos os documentos da collection
+
+   const documentos = await collection.find().toArray()
+
+    //pegamos os documentos e enviamos como resposta http 
+    res.send(documentos)
   })
 
   //Sinalizar para o express que vamos usar json no body
